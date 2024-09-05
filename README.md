@@ -170,7 +170,7 @@ new branch named `[branch_name]`
 ---
 ## GitFlow
 
-![]([https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=2212](https://wac-cdn.atlassian.com/dam/jcr:cc0b526e-adb7-4d45-874e-9bcea9898b4a/04%20Hotfix%20branches.svg?cdnVersion=2212))
+![](https://wac-cdn.atlassian.com/dam/jcr:cc0b526e-adb7-4d45-874e-9bcea9898b4a/04%20Hotfix%20branches.svg?cdnVersion=2212)
 
 1. Install `git-flow`: Linux: `apt-get install git-flow`
 
@@ -205,6 +205,7 @@ new branch named `[branch_name]`
 
   * Finish: `git flow hotfix finish [hotfix_name]`
 
+---
 ## Docker
 
 
