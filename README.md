@@ -4,6 +4,8 @@
 
 * [Vagrant](#vagrant-local-vms)
 
+  - [Create a `Vagrantfile`](##create-vagrantfile)
+
 * [Git](#git-versioning)
 
 * [GitFlow](#gitflow)
@@ -126,7 +128,11 @@ were added or deleted from each of them
 
 * `git log [since]..[until]`: Show commits that occur between `[since]` and `[until]`
 
-* `git show [commit_id]`: Show a specific commit using its identifier `[commit_id]` 
+* `git show [commit_id]`: Show a specific commit using its identifier `[commit_id]`
+
+* `git rm [file_name]`: Delete `[file_name]` from project and stage the removal for commit
+
+* `git mv [existing-path] [new-path]`: Change an existing file path and stage the move
 
 ### Rollback Changes 
 
@@ -207,6 +213,25 @@ new branch named `[branch_name]`
 
 ---
 ## Docker
+
+### General
+
+* `docker --help`: Get help with Docker
+
+* `docker info`: Display system-wide information
+
+### Images
+
+* `docker images`: List images in local system
+ 
+* `docker build -t [image_name]`: Build an Image from a Dockerfile (inside a
+directory)
+
+* `docker rmi [image_name/id]`: Delete Image `[image_name/id]`
+
+* `docker image prune`: Remove all unused images
+
+### Containers
 
 
 
