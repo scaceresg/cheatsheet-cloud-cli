@@ -2,7 +2,7 @@
 
 ## Contents
 
-[here](#vagrant-local-vms)
+* [Vagrant](#vagrant-local-vms)
 
 ## Vagrant (Local VMs)
 
