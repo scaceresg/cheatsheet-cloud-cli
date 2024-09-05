@@ -10,7 +10,9 @@
 
 * [GitFlow](#gitflow)
 
-* [Docker](#docker)
+* [Docker](#docker):
+
+  - [Containers](#containers)
 
 ---
 ## Vagrant (Local VMs)
