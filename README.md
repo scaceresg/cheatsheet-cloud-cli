@@ -2,23 +2,6 @@
 
 ## Contents
 
-* [Vagrant](#vagrant-local-vms)
-
-  - [Create a `Vagrantfile`](##create-vagrantfile)
- 
-  - [Manage Boxes](##manage-boxes)
- 
-  - [Vagrant Commands](#manage-command)
-
-* [Git](#git-versioning):
-
-  - 
-
-* [GitFlow](#gitflow)
-
-* [Docker](#docker):
-
-  - [Containers](#containers)
 
 ---
 ## Vagrant (Local VMs)
