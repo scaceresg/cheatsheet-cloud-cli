@@ -2,11 +2,20 @@
 
 ## Contents
 
+<!--ts-->
+<!--te-->
+
 * [Vagrant](#vagrant-local-vms)
 
   - [Create a `Vagrantfile`](##create-vagrantfile)
+ 
+  - [Manage Boxes](##manage-boxes)
+ 
+  - [Vagrant Commands](#manage-command)
 
-* [Git](#git-versioning)
+* [Git](#git-versioning):
+
+  - 
 
 * [GitFlow](#gitflow)
 
