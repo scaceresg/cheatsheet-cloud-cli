@@ -2,9 +2,6 @@
 
 ## Contents
 
-<!--ts-->
-<!--te-->
-
 * [Vagrant](#vagrant-local-vms)
 
   - [Create a `Vagrantfile`](##create-vagrantfile)
