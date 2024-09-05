@@ -6,6 +6,10 @@
 
 * [Git](#git-versioning)
 
+* [GitFlow](#gitflow)
+
+* [Docker](#docker)
+
 ---
 ## Vagrant (Local VMs)
 
@@ -124,10 +128,86 @@ were added or deleted from each of them
 
 * `git show [commit_id]`: Show a specific commit using its identifier `[commit_id]` 
 
-### Undo Changes (Staged)
+### Rollback Changes 
+
+#### Unstaged
+
+* `git checkout [file_name]`: Undo changes to a specific `[file_name]` before staging
+compared to the remote repository
+
+#### Staged
+
+* `git restore --staged [file_name]`: Restores `[file_name]` from the staging area
+
+* `git restore [file_name]`: Discard changes in `[file_name]`
+
+* `git reset [file_name]`: Remove `[file_name]` from the staging area, but leave the working
+directory unchanged. This unstages a file without overwriting any changes
+
+#### Committed
 
 * `git revert  [commit_id/name]`: Create a new commit that undoes all of the changes made
-in `[commit_id/name]`, then apply it to the current branch.
+in `[commit_id/name]`, then apply it to the current branch (records history)
 
-* 
+* `git revert HEAD`: Revert to the previous commit (records history)
+
+* `git reset --hard [commit_id/name]`: Update the branch by adding or removing commits
+based on the `[commit_id/name]`
+
+* `git reset HEAD~[num]`: Reset a number `[num]` of commits backwards
+
+### Branching & Merging
+
+* `git branch`: List your branches. Argument `-a` lists all your branches
+
+* `git branch [branch_name]` or `git checkout -b [branch_name]`: Create and check out a
+new branch named `[branch_name]`
+
+* `git checkout [branch_name]`: Switch to an existing branch
+
+* `git merge [branch_name]`: Merge `[branch_name]` into the current branch
+
+---
+## GitFlow
+
+![]([https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=2212](https://wac-cdn.atlassian.com/dam/jcr:cc0b526e-adb7-4d45-874e-9bcea9898b4a/04%20Hotfix%20branches.svg?cdnVersion=2212))
+
+1. Install `git-flow`: Linux: `apt-get install git-flow`
+
+2. Create and push the `develop` branch from `main`:
+
+  * `git checkout develop`
+  
+  * `git push -u origin develop`: 
+
+3. Initialise: `git flow init`
+
+4. Create/Finish a `[feature_name]` branch from `develop`:
+
+  * Create: `git flow feature start [feature_name]`
+
+  * Finish: `git flow feature finish [feature_name]`
+
+5. Create/Finish a release with a `"[version]"` based on the develop branch:
+
+  * Create: `git flow release start "[version]"`
+
+  * Finish:
+  ```
+  git checkout master
+  git checkout merge release/[version]
+  git flow release finish "[version]"
+  ```
+
+6. Create/Finish a `[hotfix_name]` branch:
+
+  * Create: `git flow hotfix start [hotfix_name]`
+
+  * Finish: `git flow hotfix finish [hotfix_name]`
+
+## Docker
+
+
+
+
 
