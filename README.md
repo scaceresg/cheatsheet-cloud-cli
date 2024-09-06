@@ -2,6 +2,29 @@
 
 ## Contents
 
+- [Cheatsheet of CLI Commands for DevOps Tools/Applications](#cheatsheet-of-cli-commands-for-devops-toolsapplications)
+  - [Contents](#contents)
+  - [Vagrant (Local VMs)](#vagrant-local-vms)
+    - [Create a `Vagrantfile`](#create-a-vagrantfile)
+    - [Manage Boxes](#manage-boxes)
+    - [Vagrant Commands](#vagrant-commands)
+  - [Git (Versioning)](#git-versioning)
+    - [Set Up Git Config](#set-up-git-config)
+    - [Initiate Git](#initiate-git)
+    - [Update Changes from the Repo](#update-changes-from-the-repo)
+    - [Make Changes to a Repo](#make-changes-to-a-repo)
+    - [Review Changes](#review-changes)
+    - [Rollback Changes](#rollback-changes)
+      - [Unstaged](#unstaged)
+      - [Staged](#staged)
+      - [Committed](#committed)
+    - [Branching \& Merging](#branching--merging)
+  - [GitFlow](#gitflow)
+  - [Docker](#docker)
+    - [General](#general)
+    - [Images](#images)
+    - [Containers](#containers)
+    - [Docker Compose](#docker-compose)
 
 ---
 ## Vagrant (Local VMs)
@@ -10,8 +33,8 @@
 
 * `vagrant -v`: Check Vagrant version
 
-* `vagrant init`: Initialise Vagrant with a non-specific Vagran­tfile and ./.vagrant
-directory
+* `vagrant init`: Initialise Vagrant with a non-specific Vagran­tfile and 
+./.vagrant directory
 
 * `vagrant init [url-to-vagrant-box]`: Initialise Vagrant with a specific box
 
@@ -56,18 +79,22 @@ entries
 
 * `cat .git/config`: Check the contents of the configuration file
 
-**REMEMBER**: Use SSH Keys (`ssh-keygen -t rsa` in Linux) to connect with GitHub repos
+**REMEMBER**: Use SSH Keys (`ssh-keygen -t rsa` in Linux) to connect with GitHub 
+repos
 
 ### Initiate Git
 
-* `git init` or `git init [directory_path]`: Initialise a directory as a Git repository
+* `git init` or `git init [directory_path]`: Initialise a directory as a Git 
+repository
 
 * `git clone [url_to_repo].git` or `git clone -b [branch_name] [url_to_repo].git`:
-retrieve a repository from a location via URL. `-b [branch_name]` to specify the branch
+retrieve a repository from a location via URL. `-b [branch_name]` to specify the 
+branch
 
 * `git remote show origin`: Check the current remote URL of your configuration file
 
-* `git remote set-url origin [new_url_to_repo].git`: Add or change the remote origin
+* `git remote set-url origin [new_url_to_repo].git`: Add or change the remote 
+origin
 
 * `git branch -M main`: Set master branch as `main`
 
@@ -81,12 +108,12 @@ retrieve a repository from a location via URL. `-b [branch_name]` to specify the
 
 * `git status`: Show modified files in the working directory
 
-* `git add .` or `git add *` or `git add [file_name]`: Add current directory files (`.`)
-or all the files in the directory (`*`) or a specific file (`[file_name]`) to your next
-commit (stage)
+* `git add .` or `git add *` or `git add [file_name]`: Add current directory files 
+(`.`) or all the files in the directory (`*`) or a specific file (`[file_name]`) 
+to your next commit (stage)
 
-* `git reset [file_name]`: Unstage a file while retaining the changes in the working
-directory
+* `git reset [file_name]`: Unstage a file while retaining the changes in the 
+working directory
 
 * `git diff`: Show the differences of what is changed but not staged
 
@@ -94,43 +121,46 @@ directory
 
 * `git diff HEAD`: Show difference between working directory and last commit
 
-* `git commit -m "[message]"`: Commit your staged content as a new commit snapshot with
-a descriptive `[message]` of your changes.
+* `git commit -m "[message]"`: Commit your staged content as a new commit snapshot 
+with a descriptive `[message]` of your changes.
 
-* `git push -u origin [branch_name]`: Push local branch commits to the remote repository
-branch
+* `git push -u origin [branch_name]`: Push local branch commits to the remote 
+repository branch
 
 ### Review Changes
 
-* `git log -[num_limit]`: Limit the number of commits by `[num_limit]`. For example,
-`git log -5` for 5 last commits.
+* `git log -[num_limit]`: Limit the number of commits by `[num_limit]`. For 
+example, `git log -5` for 5 last commits.
 
 * `git log --oneline`: Condense each commit to a single line
 
 * `git log -p`: Display the full diff of each commit
 
-* `git log --stat`: Include which files were altered and the relative number of lines that
-were added or deleted from each of them
+* `git log --stat`: Include which files were altered and the relative number 
+of lines that were added or deleted from each of them
 
 * `git log --author= "[pattern]"`: Search for commits by a particular author
 
-* `git log --grep="[pattern]"`: Search for commits with a commit message that matches
-`"[pattern]"`
+* `git log --grep="[pattern]"`: Search for commits with a commit message that 
+matches `"[pattern]"`
 
-* `git log [since]..[until]`: Show commits that occur between `[since]` and `[until]`
+* `git log [since]..[until]`: Show commits that occur between `[since]` and 
+`[until]` commits
 
 * `git show [commit_id]`: Show a specific commit using its identifier `[commit_id]`
 
-* `git rm [file_name]`: Delete `[file_name]` from project and stage the removal for commit
+* `git rm [file_name]`: Delete `[file_name]` from project and stage the removal 
+for commit
 
-* `git mv [existing-path] [new-path]`: Change an existing file path and stage the move
+* `git mv [existing-path] [new-path]`: Change an existing file path and stage 
+the move
 
 ### Rollback Changes 
 
 #### Unstaged
 
-* `git checkout [file_name]`: Undo changes to a specific `[file_name]` before staging
-compared to the remote repository
+* `git checkout [file_name]`: Undo changes to a specific `[file_name]` before 
+staging compared to the remote repository
 
 #### Staged
 
@@ -138,18 +168,20 @@ compared to the remote repository
 
 * `git restore [file_name]`: Discard changes in `[file_name]`
 
-* `git reset [file_name]`: Remove `[file_name]` from the staging area, but leave the working
-directory unchanged. This unstages a file without overwriting any changes
+* `git reset [file_name]`: Remove `[file_name]` from the staging area, but leave
+the working directory unchanged. This unstages a file without overwriting any 
+changes
 
 #### Committed
 
-* `git revert  [commit_id/name]`: Create a new commit that undoes all of the changes made
-in `[commit_id/name]`, then apply it to the current branch (records history)
+* `git revert  [commit_id/name]`: Create a new commit that undoes all of the 
+changes made in `[commit_id/name]`, then apply it to the current branch 
+(records history)
 
 * `git revert HEAD`: Revert to the previous commit (records history)
 
-* `git reset --hard [commit_id/name]`: Update the branch by adding or removing commits
-based on the `[commit_id/name]`
+* `git reset --hard [commit_id/name]`: Update the branch by adding or removing 
+commits based on the `[commit_id/name]`
 
 * `git reset HEAD~[num]`: Reset a number `[num]` of commits backwards
 
@@ -157,8 +189,8 @@ based on the `[commit_id/name]`
 
 * `git branch`: List your branches. Argument `-a` lists all your branches
 
-* `git branch [branch_name]` or `git checkout -b [branch_name]`: Create and check out a
-new branch named `[branch_name]`
+* `git branch [branch_name]` or `git checkout -b [branch_name]`: Create and check 
+out a new branch named `[branch_name]`
 
 * `git checkout [branch_name]`: Switch to an existing branch
 
@@ -224,7 +256,51 @@ directory)
 
 ### Containers
 
+* `docker ps`: List running containers. Add argument `-a` to list all the
+containers
 
+* `docker container stats`: View resource usage stats
 
+* `docker run --name [container_name] [image_name]`: Create and run a container 
+from an [image_name], with a [container_name]
 
+* `docker run -p [host_port]:[container_port] [image_name]`: Run a container
+and publish its port(s) to the host
+
+* `docker start|stop [container_name/id]`: Start or stop an existing container
+
+* `docker rm [container_name]`: Remove a stopped container
+
+* 
+
+* `docker logs -f [container_name]` Fetch and follow the logs of a container
+  
+* `docker inspect [container_name]`: Inspect a running container
+
+* `docker top [container_name]`: List the processes running inside a container
+
+* `docker system prune -a`: Remove all unused containers, networks, images 
+(both dangling and unused), and volumes
+
+### Docker Compose
+
+In the directory where the `docker-compose.yml` file is located:
+
+* `docker compose build`: (Re)Build instructions in a `docker-compose.yml` 
+file
+
+* `docker compose up`: Build (if not), (re)create, start, and attach to 
+containers for a service
+
+* `docker compose down`: Stop containers and remove containers, networks, 
+volumes, and images created by `up`
+
+* `docker compose start`: Start existing containers for a service
+
+* `docker compose stop`: Stop running containers without removing them
+
+* `docker compose logs`: Monitor the output of your running containers and 
+debug issues
+
+* `docker compose ps`: List all the services along with their current status
 
