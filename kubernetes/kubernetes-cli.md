@@ -141,6 +141,20 @@ particular image in a pod
       kubectl run hazelcast --image=hazelcast/hazelcast --port=5701 \
       --env="DNS_DOMAIN=cluster"
       ```
+  - `--dry-run`: Must be "none", "server", or "client". If client 
+  strategy, only print the object that would be sent, without sending 
+  it. If server strategy, submit server-side request without persisting 
+  the resource
+
+    For example:
+
+    * Save the manifest file for running an `nginx` image in a pod 
+    in YAML format:
+
+      ```
+      kubectl run nginx-pod --image=nginx --dry-run=client -o yaml > ngpod.yaml
+      ```
+
   - `--command`: If true and extra arguments are present, use them as 
   the 'command' field in the container, rather than the 'args' field 
   which is the default
