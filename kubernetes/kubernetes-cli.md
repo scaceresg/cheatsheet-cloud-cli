@@ -106,14 +106,30 @@ context entry in kubeconfig.
 
 ## Create, Run, Apply, Delete, Scale
 
-* `kubectl create -f [resource_filename]`: Create a resource from a file or 
-from stdin. JSON and YAML formats are accepted
+* `kubectl create -f [resource_filename]`: Create a resource from a 
+file or from stdin. JSON and YAML formats are accepted
 
   For example:
 
-  * Create a Pod from a manifest file: 
+  - Create a Pod from a manifest file: 
 
     `kubectl create -f pod-setup.yml`
+
+  Use flags:
+
+  - `--dry-run`: Must be "none", "server", or "client". If client 
+  strategy, only print the object that would be sent, without sending 
+  it. If server strategy, submit server-side request without persisting 
+  the resource
+
+  For example:
+
+    * Save a manifest file for an `nginx` deployment from image:
+      
+      ```
+      kubectl create deployment ngdep --image=nginx \
+        --dry-run=client -o yaml > ngdeployment.yaml
+      ```
 
 * `kubectl run [pod_name] --image=[image_name]`: Create and run a 
 particular image in a pod
