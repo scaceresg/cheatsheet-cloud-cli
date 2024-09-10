@@ -9,7 +9,8 @@
     - [For Microservice Applications](#for-microservice-applications)
   - [Docker CLI Commands](#docker-cli-commands)
   - [Docker and Docker Compose Instructions](#docker-and-docker-compose-instructions)
-
+  - [Basic Templates](#basic-templates)
+  - [Sample `Dockerfile` \& `compose.yml` Files for Applications](#sample-dockerfile--composeyml-files-for-applications)
 
 ## Project Steps
 
@@ -23,16 +24,16 @@ Compute Engine instance, etc.
 3. Find the Docker base images for your application 
 requirements
 
-  * Browse for the service images in Docker Hub:
-  https://hub.docker.com/
+     * Browse for the service images in Docker Hub:
+     https://hub.docker.com/
 
-  * Check which services require a customised image
+     * Check which services require a customised image
 
 4. Fetch the source code (from GitHub):
   
-  * Add SSH Keys to your GitHub account
-  
-  * Clone repo: `git clone`
+     * Add SSH Keys to your GitHub account
+     
+     * Clone repo: `git clone`
 
 5. Write custom `Dockerfile` if required
 
@@ -48,80 +49,85 @@ requirements
 
 ## Project Requirements
 
-* Docker base images for services from **Docker Hub**
-to add in the docker compose manifest file
+* **Docker base images**:
+  
+  - Base images for services from **Docker Hub**
+  
+  - Prepare to add them to the docker compose manifest 
+  file
 
-* Docker custom images for services (if required),
-separated in different directories
+* **Custom Dockerfiles**:
+  
+  - Custom images for services (if required)
+  
+  - Should be separated in different directories
 
-* The `docker-compose.yml` file
+* **Docker Compose file**: `docker-compose.yml`
 
-* The application source code
+* **Application source code**
 
 ### For Java Web Applications
 
-* `java-webapp/`:
-
-  - `src/`: Java source code
-  
-  - `pom.xml`: Maven configuration file
-  
-  - `docker-compose.yml`
-  
-  - `app/`: 
-  
-    * `tomcat.Dockerfile` 
-  
-  - `db/`: 
-    
-    * `mysql.Dockerfile`
-    
-    * `init_db.sql`
-  
-  - `web/`:
-
-    * `nginx.Dockerfile`
-    
-    * `nginx.conf`
-  
-  - `README.md`
+```
+java-webapp
+├─ README.md
+├─ docker-compose.yaml
+├─ src
+│  └─ source code ...
+├─ pom.xml
+├─ app
+│  └─ tomcat.Dockerfile
+├─ web
+|  ├─ nginx.conf
+│  └─ nginx.Dockerfile
+└─ db
+   ├─ init_db.sql
+   └─ mysql.Dockerfile
+```
 
 * Project example: 
   
-  [Containerising a Java Application using Docker Compose in AWS](https://github.com/scaceresg/devops-vprofile-deployments/tree/17e606f50d6ec0da6a119215989b59848ba9c8fd/docker-aws-ec2)
+  [**Containerising a Java Application using Docker Compose in AWS**](https://github.com/scaceresg/devops-vprofile-deployments/tree/17e606f50d6ec0da6a119215989b59848ba9c8fd/docker-aws-ec2)
 
 ### For Microservice Applications
 
-* `app/`:
-  
-  - `service-1/`:
-  
-    * `service-1.Dockerfile`
-  
-  - `service-2/`:
-  
-    * `service-2.Dockerfile`
-  
-  - `service-3/`:
-  
-    * `service-3.Dockerfile`
-  
-  - `api-gateway/`:
-  
-    * `gateway.conf`
-  
-  - `docker-compose.yml`
-  
-  - `README.md`
+```
+app
+├─ README.md
+├─ docker-compose.yaml
+├─ service-1
+│  ├─ service1.Dockerfile
+│  └─ source code ...
+├─ service-2
+│  ├─ service2.Dockerfile
+│  └─ source code ...
+├─ apigateway
+│  ├─ apigateway
+│  │  └─ default.conf
+│  └─ default.conf
+└─ service-3
+   ├─ service3.Dockerfile
+   └─ source code ...
+```
 
 * Project example:
   
-  [Deploying an E-Commerce Microservice App using Docker in AWS](https://github.com/scaceresg/devops-ecommerce-docker-aws.git)
+  [**Deploying an E-Commerce Microservice App using Docker in AWS**](https://github.com/scaceresg/devops-ecommerce-docker-aws.git)
 
 ## Docker CLI Commands
 
-Check [**docker-cli.md**](https://github.com/scaceresg/scaffold-devops/blob/43ca63b0abc437340533949a4797e65a4827f533/docker/docker-cli.md)
+Check [**docker-cli.md**](docker-cli.md)
 
 ## Docker and Docker Compose Instructions
 
-Check [**dockefile-compose.md**](https://github.com/scaceresg/scaffold-devops/blob/43ca63b0abc437340533949a4797e65a4827f533/docker/dockerfile-compose.md)
+Check [**dockefile-compose.md**](dockerfile-compose.md)
+
+## Basic Templates
+
+Check [**Basic Templates**](./basic-templates/)
+
+## Sample `Dockerfile` & `compose.yml` Files for Applications
+
+Check 
+[**Awesome Compose**](https://github.com/docker/awesome-compose/tree/master) 
+repository.

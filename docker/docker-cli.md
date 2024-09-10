@@ -5,7 +5,7 @@
   - [General](#general)
   - [Images](#images)
   - [Containers](#containers)
-  - [Loggins and System](#loggins-and-system)
+  - [Logs and System](#logs-and-system)
   - [Docker Compose](#docker-compose)
 
 ---
@@ -48,7 +48,7 @@ and publish its port(s) to the host
 
 * `docker rm [container_name]`: Remove a stopped container
 
-## Loggins and System
+## Logs and System
 
 * `docker logs -f [container_name]` Fetch and follow the logs of a container
   

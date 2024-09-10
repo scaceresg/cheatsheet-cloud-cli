@@ -1,9 +1,8 @@
 # Cheatsheet of CLI Commands for DevOps Tools/Applications
 
-## Contents
+**Contents**:
 
 - [Cheatsheet of CLI Commands for DevOps Tools/Applications](#cheatsheet-of-cli-commands-for-devops-toolsapplications)
-  - [Contents](#contents)
   - [Vagrant (Local VMs)](#vagrant-local-vms)
     - [Create a `Vagrantfile`](#create-a-vagrantfile)
     - [Manage Boxes](#manage-boxes)
