@@ -1,11 +1,11 @@
 # Dockerfile Instructions and Docker Compose Specifications
 
 - [Dockerfile Instructions and Docker Compose Specifications](#dockerfile-instructions-and-docker-compose-specifications)
-  - [Dockerfile Instructions](#dockerfile-instructions)
-  - [Compose Specifications](#compose-specifications)
+- [Dockerfile Instructions](#dockerfile-instructions)
+- [Compose Specifications](#compose-specifications)
 
 ---
-## Dockerfile Instructions
+# Dockerfile Instructions
 
 Source: https://docs.docker.com/reference/dockerfile/
 
@@ -27,7 +27,7 @@ Source: https://docs.docker.com/reference/dockerfile/
 | `HEALTHCHECK`| Check a container's health on startup                  |
 
 ---
-## Compose Specifications
+# Compose Specifications
 
 Source: https://docs.docker.com/reference/compose-file/
 

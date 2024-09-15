@@ -3,25 +3,16 @@
 Source: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-
 
 - [Kubernetes](#kubernetes)
-  - [Install Kops and Kubectl](#install-kops-and-kubectl)
-  - [Config](#config)
-  - [Create, Run, Apply, Delete, Scale](#create-run-apply-delete-scale)
-  - [Get](#get)
-  - [Set](#set)
-  - [Debug: Describe and Logs](#debug-describe-and-logs)
+- [Config](#config)
+- [Create, Run, Apply, Delete, Scale](#create-run-apply-delete-scale)
+- [Get](#get)
+- [Set](#set)
+- [Debug: Describe and Logs](#debug-describe-and-logs)
+
+---
 
 
-## Install Kops and Kubectl
-
-* Kops: Download a Kops binary version from: 
-https://github.com/kubernetes/kops/releases, make it executable and move 
-it to the `usr/local/bin/kops` directory with the name `kops`
-
-* Kubectl: Download the binary using the command in 
-https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/, make it
-executable and move it to the `usr/local/bin/` directory
-
-## Config
+# Config
 
 * `cat ~/.kube/config`: Get configuration file (Usually in home `~` 
 directory)
@@ -104,7 +95,7 @@ context entry in kubeconfig.
   
   -  `--namespace`: Set a namespace
 
-## Create, Run, Apply, Delete, Scale
+# Create, Run, Apply, Delete, Scale
 
 * `kubectl create -f [resource_filename]`: Create a resource from a 
 file or from stdin. JSON and YAML formats are accepted
@@ -291,7 +282,7 @@ set, replication controller, or stateful set
 * `kubectl exec --stdin --tty [pod_name] -- /bin/bash` or `-- /bin/sh`:
 Log into a Pod 
 
-## Get
+# Get
 
 * `kubectl get [resource]`: Prints a table of the most important 
 information about the specified resources. 
@@ -350,7 +341,7 @@ information about the specified resources.
   - `--sort-by`: If non-empty, sort list of resources using specified field. 
   The field can be either 'name' or 'kind'
 
-## Set
+# Set
 
 * `kubectl set [subcommand]`: Configure application resources
 
@@ -408,7 +399,7 @@ requirements (CPU, memory) for any resource that defines a pod template
     
     `kubectl set resources deployment nginx --limits=cpu=0,memory=0 --requests=cpu=0,memory=0`
 
-## Debug: Describe and Logs
+# Debug: Describe and Logs
 
 * `kubectl describe [resource_name/type]`: Show details of a specific resource 
 or group of resources, such as IP address, container image, exposed ports, 

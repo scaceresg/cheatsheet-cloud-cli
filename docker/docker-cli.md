@@ -1,26 +1,28 @@
 # Docker CLI Commands
 
 - [Docker CLI Commands](#docker-cli-commands)
-  - [Install](#install)
-  - [General](#general)
-  - [Images](#images)
-  - [Containers](#containers)
-  - [Logs and System](#logs-and-system)
-  - [Docker Compose](#docker-compose)
+- [Install](#install)
+- [General](#general)
+- [Images](#images)
+- [Containers](#containers)
+- [Logs and System](#logs-and-system)
+- [Docker Compose](#docker-compose)
 
 ---
-## Install
+# Install
 
 * Linux/Ubuntu: Follow the steps in 
 https://docs.docker.com/engine/install/ubuntu/
 
-## General
+---
+# General
 
 * `docker --help`: Get help with Docker
 
 * `docker info`: Display system-wide information
 
-## Images
+---
+# Images
 
 * `docker images`: List images in local system
  
@@ -31,7 +33,8 @@ directory)
 
 * `docker image prune`: Remove all unused images
 
-## Containers
+---
+# Containers
 
 * `docker ps`: List running containers. Add argument `-a` to list all the
 containers
@@ -48,7 +51,8 @@ and publish its port(s) to the host
 
 * `docker rm [container_name]`: Remove a stopped container
 
-## Logs and System
+---
+# Logs and System
 
 * `docker logs -f [container_name]` Fetch and follow the logs of a container
   
@@ -59,7 +63,8 @@ and publish its port(s) to the host
 * `docker system prune -a`: Remove all unused containers, networks, images 
 (both dangling and unused), and volumes
 
-## Docker Compose
+---
+# Docker Compose
 
 In the directory where the `docker-compose.yml` file is located:
 

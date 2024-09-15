@@ -12,6 +12,7 @@
   - [Basic Templates](#basic-templates)
   - [Sample `Dockerfile` \& `compose.yml` Files for Applications](#sample-dockerfile--composeyml-files-for-applications)
 
+
 ## Project Steps
 
 1. Set up the environment: Local, AWS EC2 instance, GCP's
