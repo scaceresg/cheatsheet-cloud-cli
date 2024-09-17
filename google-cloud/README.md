@@ -555,13 +555,16 @@ large-scale access changes for multiple principals, use the
 3. Write the updated allow policy by calling:
    
     ```
-    gcloud [RESOURCE_TYPE] set-iam-policy [RESOURCE_ID] [PATH]
+    gcloud iam service-accounts set-iam-policy [SERVICE_ACCT_ID] [PATH]
     ```
+
+    - ``
 
     An example for a project:
 
     ```
-    gcloud projects set-iam-policy my-project ~/policy.json
+    gcloud iam service-accounts set-iam-policy my-service-account@my-project.iam.gserviceaccount.com \
+    ~/policy.json
     ```
 
 ---
