@@ -272,6 +272,31 @@ account key.
 (`roles/iam.serviceAccountTokenCreator`) IAM role on the service 
 account you are impersonating.
 
+* Create a service account:
+  
+  ```
+  gcloud iam service-accounts create [SERVICE_ACCOUNT_NAME]
+  ```
+
+* Provide access to your project and resources, and grant a role:
+  
+  ```
+  gcloud projects add-iam-policy-binding [PROJECT_ID] --member="serviceAccount:[SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com" --role=[ROLE]
+  ```
+
+* Grant the required role to the principal that will attach the 
+service account to other resources:
+  
+  ```
+  gcloud iam service-accounts add-iam-policy-binding [SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com --member="serviceAccount:[SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com" --role=roles/iam.serviceAccountUser
+  ```
+
+* Check the role bindings for the service account:
+
+  ```
+  gcloud iam service-accounts get-iam-policy [SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com
+  ```
+
 * Use service account impersonation to create a local ADC file:
   
   ```
@@ -280,6 +305,16 @@ account you are impersonating.
 
   - Credentials are automatically found by the authentication 
   libraries. 
+
+* Stop using impersonated service account credentials with the 
+`gcloud` CLI by default:
+
+  ```
+  gcloud config unset auth/impersonate_service_account
+  ```
+  ```
+  gcloud auth application-default login
+  ```
 
 ## For Google Cloud Services that support attaching a Service Account
 
@@ -318,7 +353,13 @@ a role to the service account:
 service account to other resources:
 
   ```
-  gcloud iam service-accounts add-iam-policy-binding [SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com --member="user:[USER_EMAIL]" --role=roles/iam.serviceAccountUser
+  gcloud iam service-accounts add-iam-policy-binding [SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com --member="serviceAccount:[SERVICE_ACCOUNT_NAME]@[PROJECT_ID].iam.gserviceaccount.com" --role=roles/iam.serviceAccountUser
+  ```
+
+* Check the granted roles for the service account:
+  
+  ```
+  gcloud projects get-iam-policy [PROJECT_ID] --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:[[SERVICE_ACCT_NAME]@[PROJECT_ID].iam.gserviceaccount.com]"
   ```
 
 ---
@@ -489,9 +530,7 @@ in the [View Current Access](#view-current-access) section
 * Grant a single role to a principal:
   
   ```
-  gcloud iam service-accounts add-iam-policy-binding [SERVICE_ACCT_ID] \
-    --member=[PRINCIPAL] --role=[ROLE_NAME] \
-    --condition=[CONDITION]
+  gcloud iam service-accounts add-iam-policy-binding [SERVICE_ACCT_ID] --member=[PRINCIPAL] --role=[ROLE_NAME] --condition=[CONDITION]
   ```
 
   For example:
@@ -506,15 +545,13 @@ in the [View Current Access](#view-current-access) section
 * Revoke a single role from a principal:
   
   ```
-  gcloud iam service-accounts remove-iam-policy-binding [SERVICE_ACCT_ID] \
-    --member=[PRINCIPAL] --role=[ROLE_NAME]
+  gcloud iam service-accounts remove-iam-policy-binding [SERVICE_ACCT_ID] --member=[PRINCIPAL] --role=[ROLE_NAME]
   ```
 
   For example:
 
   ```
-  gcloud iam service-accounts remove-iam-policy-binding my-service-account@my-project.iam.gserviceaccount.com \
-    --member=user:my-user@example.com --role=roles/iam.serviceAccountUser
+  gcloud iam service-accounts remove-iam-policy-binding my-service-account@my-project.iam.gserviceaccount.com --member=user:my-user@example.com --role=roles/iam.serviceAccountUser
   ```
 
 ### Grant/Revoke Multiple Roles Programmatically
@@ -557,8 +594,6 @@ large-scale access changes for multiple principals, use the
     ```
     gcloud iam service-accounts set-iam-policy [SERVICE_ACCT_ID] [PATH]
     ```
-
-    - ``
 
     An example for a project:
 
