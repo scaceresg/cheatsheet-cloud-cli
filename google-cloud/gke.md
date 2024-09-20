@@ -4,6 +4,7 @@
 
 - [Google Kubernetes Engine](#google-kubernetes-engine)
   - [Control Access to GKE Clusters using IAM](#control-access-to-gke-clusters-using-iam)
+  - [Create an Autopilot Cluster](#create-an-autopilot-cluster)
   - [Create a Standard Cluster](#create-a-standard-cluster)
   - [Create a Deployment](#create-a-deployment)
   - [Scale Up/Down a Deployment](#scale-updown-a-deployment)
@@ -61,7 +62,9 @@ Engine default service account to select it.
 
   - Save
 
-## Create a Standard Cluster
+## Create an Autopilot Cluster
+
+In Cloud Shell:
 
 In Cloud Shell:
 
@@ -81,7 +84,49 @@ In Cloud Shell:
 
   ```
   $ export my_region=us-west1
-  $ export my_zone=us-west1-a
+  $ export my_cluster=autopilot-cluster-1
+  ```
+
+* Configure `kubectl` tab completion in Cloud Shell:
+  
+  ```
+  source <(kubectl completion bash)
+  ```
+
+* Create an Autopilot cluster:
+  
+  ```
+  gcloud container clusters create-auto $my_cluster --region $my_region
+  ```
+
+* Configure access to your cluster for the `kubectl` command-line 
+tool:
+
+  ```
+  gcloud container clusters get-credentials $my_cluster 
+    --region $my_region
+  ```
+
+## Create a Standard Cluster
+
+In Cloud Shell:
+
+* Check the active account name:
+  
+  ```
+  gcloud auth list
+  ```
+
+* List the Project ID:
+  
+  ```
+  gcloud config list project
+  ```
+
+* Set the environment variable for the zone and cluster name:
+
+  ```
+  $ export [my_zone=us-west1-a | $my_region=us-west1]
   $ export my_cluster=standard-cluster-1
   ```
 
