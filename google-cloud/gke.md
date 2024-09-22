@@ -18,6 +18,9 @@
   - [Create PersistentVolume and PersistentVolumeClaim](#create-persistentvolume-and-persistentvolumeclaim)
   - [Create StatefulSets](#create-statefulsets)
   - [Define and Use Pod Security Admission](#define-and-use-pod-security-admission)
+  - [Configure a Monitoring Workspace for GKE](#configure-a-monitoring-workspace-for-gke)
+    - [Create a Custom Monitoring Dashboard](#create-a-custom-monitoring-dashboard)
+    - [Create Alerts with Monitoring](#create-alerts-with-monitoring)
 
 ---
 
@@ -868,19 +871,19 @@ as the Pods are stopped and restarted:
 
 PodSecurity is a Kubernetes admission controller that lets you 
 apply **Pod Security Standards** to Pods running on your GKE 
-clusters. Pod Security Standards are **predefined security policies 
-that cover the high-level needs of Pod security** in Kubernetes. 
-These policies range from being highly permissive to highly 
-restrictive.
+clusters. Pod Security Standards are **predefined security 
+policies that cover the high-level needs of Pod security** in 
+Kubernetes. These policies range from being highly permissive to 
+highly restrictive.
 
 Create a Pod Security Policy to create **unprivileged Pods for
 specific namespaces** in the cluster:
 
-* Unprivileged Pods do not allow users to execute code as root, and 
-have limited access to devices on the host.
+* Unprivileged Pods do not allow users to execute code as root, 
+and have limited access to devices on the host.
 
-* Create environment variables for the Google Cloud zone and cluster 
-name:
+* Create environment variables for the Google Cloud zone and 
+cluster name:
 
   ```
   $ export my_zone=ZONE
@@ -946,10 +949,10 @@ name:
   kube-system       Active   57m   kubernetes.io/metadata.name=kube-system
   ```
 
-Verify the PodSecurity admission controller is working by deploying 
-a Pod running a container with priviliged escalation 
-`securityContext: privileged: true` to both namespaces `baseline-ns` 
-and `restricted-ns`:
+Verify the PodSecurity admission controller is working by 
+deploying a Pod running a container with priviliged escalation 
+`securityContext: privileged: true` to both namespaces 
+`baseline-ns` and `restricted-ns`:
 
 * `psa-workload.yaml`:
   
@@ -1000,3 +1003,167 @@ unprivileged access:
   
   - Used in ClusterRolebinding that ties the policy to accounts 
   that require the ability to deploy pods with unprivileged access.
+
+## Configure a Monitoring Workspace for GKE
+
+In Cloud Console:
+
+* Click on Navigation menu > **Monitoring**
+
+When the Monitoring dashboard opens, browse the 3 sections of the
+Kubernetes Engine Monitoring interface (Refresh if needed):
+
+* Infrastructure
+
+* Workloads
+
+* Services
+
+In the Monitoring interface:
+
+* Click GKE in the **Dashboards** section to view the new 
+monitoring interface
+
+* The dashboard shows the health of your GKE clusters and their
+workloads
+
+* A dynamic **Timeline** is displayed in the top portion of the 
+interface. If required, expand it by clicking on the dropdown icon. 
+You can adjust the Time Span from the top of the screen: 1h, 6h, 
+1d, 1w, 1m, 6w, or custom 
+
+* This timeline will include markers that indicate **the occurrence 
+of alerts (also known as incidents)**
+
+* Click the **Auto refresh button** to allow the screen to update 
+as new events are received
+
+* The lower portion of this dashboard contains a multiple section 
+views of your clusters and their workloads. The interface is divided 
+into several sections: 
+
+  - **Clusters, Nodes and Pods** section: 
+    
+    Allow you to check the health of particular elements in the 
+    cluster. You can also use this to inspect the pods which are 
+    running on a particular node in the cluster
+  
+  - **Workloads** section:
+    
+    Used to look for workloads which do not have services exposed
+  
+  - **Kubernetes services** section:
+    
+    Organises the services configured in your environment **by 
+    cluster**, then **by namespace** (the administrative barrier or 
+    partition within the cluster), and then shows the various 
+    services available to users within that namespace.
+
+  - **Namespaces** section:
+    
+    Shows the list of namespaces within the cluster
+
+You can click on any of the section elements and then on "View all"
+and **Metrics** to see more metrics. You can also click the 
+**Logs** tab to view the log activity for that element.
+
+### Create a Custom Monitoring Dashboard
+
+You can create custom dashboards to display important metrics such
+as CPU utilisation, container restarts and more custom metrics.
+
+* Go to the Monitoring page at the left-hand side and click on 
+**Metrics Explorer**
+
+* Click on Select a metric
+
+* Search the metric: e.g. **Kubernetes Container > Popular Metrics >
+CPU request utilization**
+
+* Click Apply
+
+* Click the **Save Chart** button in the upper right corner of the
+screen
+
+* Give the chart a name: e.g., **Container CPU Request** 
+
+* Click on **Dashboard > New Dashboard** and name your deashboard:
+e.g., **Container Dashboard**
+
+* Click on Save Chart
+
+* Now, launch your dashboard by clicking **Dashboards** in the
+navigation pane and then select the name of your new dashboard
+
+* You can add more charts for other metrics:
+  
+  - Again, go to Metrics Explorer > Select a metric: e.g., 
+  **Kubernetes Pod > Custom metrics > Web App - Active Users**
+
+  - Click Apply
+  
+  - Click on Save Chart and give a name to the new chart: e.g.,
+  **Active Users**
+
+  - Select **Container Dashboard** from the dashboards dropdown
+  
+  - Click Save Chart
+
+* Go back to your dashboard and click the **Gear** icon to display 
+the settings menu:
+
+  - Click **Legends > Table** to display the text under each chart
+
+* You can also filter or even aggregate data in the chart using the 
+labels in the vertical bars next to the word **Value** at the right 
+of each chart.
+
+### Create Alerts with Monitoring
+
+Create an Alert Policy to detect high CPU utilisation among the 
+containers:
+
+In Cloud Console:
+
+* Use the Navigation menu to select **Monitoring > Detect >
+Alerting**
+
+* Click **+ Create Policy**
+
+* Click on **Select a metric** dropdown
+
+* Uncheck the Active option
+
+* Type: **Kubernetes Container** in filter by resource and metric
+name
+
+* Click on **Kubernetes Container > Container > CPU request 
+utilization**
+
+* Click Apply
+
+* Set **Rolling windows** to 1 min and click Next
+
+* Set Threshold position to **Above Threshold** and **Threshold
+value** to 0.99
+
+* Click Next
+
+**Configure notifications**:
+
+* Click on dropdown arrow next to **Notification Channels**, then
+click on **Manage Notification Channels** and finally open the
+**Notification channels** page.
+
+* Select the preferred notification channel and click on **ADD 
+NEW**
+
+* Save and go back to the previous **Create alerting policy** tab
+
+* Click on Notification Channels again, then click on the Refresh
+icon to get your newly added notification channel.
+
+* Click OK, name the alert and click Next
+
+* Review and click **Create Policy**
+
