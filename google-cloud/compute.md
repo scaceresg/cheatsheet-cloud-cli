@@ -7,7 +7,6 @@
 - [Work with VMs](#work-with-vms)
 
 
-Create a ClusterRole that can be used in a ClusterRoleBinding to 
 # View/Set Region/Zone and Describe Project
 
 * View your region and zone details:
@@ -61,6 +60,14 @@ project metadata, ssh keys, and quota metrics:
   ```
   gcloud compute project-info describe
   ```
+
+* Set the `PROJECT_ID` environment variable from the configuration
+file:
+  
+  ```
+  export PROJECT_ID="$(gcloud config get-value project -q)"
+  ```
+
 
 # Work with VMs
 
