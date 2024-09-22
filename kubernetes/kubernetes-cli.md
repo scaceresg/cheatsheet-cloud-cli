@@ -564,6 +564,18 @@ is optional
     ```
     kubectl logs --tail=20 nginx
     ```
+  
+  - Restrict the output to last 3 hours in pod nginx:
+    
+    ```
+    kubectl logs --since=3h nginx
+    ```
+
+  - View a previous instantiation of the nginx container:
+    
+    ```
+    kubectl logs --previous nginx
+    ```
 
   Use flags:
 
