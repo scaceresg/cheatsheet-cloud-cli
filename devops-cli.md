@@ -8,7 +8,9 @@
     - [Manage Boxes](#manage-boxes)
     - [Vagrant Commands](#vagrant-commands)
   - [Git (Versioning)](#git-versioning)
-    - [Set Up Git Config](#set-up-git-config)
+    - [Set Up SSH Config for Git Accounts: Personal and Corporate](#set-up-ssh-config-for-git-accounts-personal-and-corporate)
+    - [Configure Global Username and User emal for an Account](#configure-global-username-and-user-emal-for-an-account)
+    - [Sign your Commits](#sign-your-commits)
     - [Initiate Git](#initiate-git)
     - [Update Changes from the Repo](#update-changes-from-the-repo)
     - [Make Changes to a Repo](#make-changes-to-a-repo)
@@ -65,16 +67,184 @@ entries
 ---
 ## Git (Versioning)
 
-### Set Up Git Config
+### Set Up SSH Config for Git Accounts: Personal and Corporate
 
-* `git config --global user.name "[first_name last_name]"`: Set global username
+* Go to Git Bash
 
-* `git config --global user.email "[valid-email]"`: Set global email of username
+* Generate an SSH key for each account:
+  
+  ```
+  > ssh-keygen -t ed25519 -C "your.personal.email@email.com"
+  > ssh-keygen -t ed25519 -C "your.corporate.email@company.com"
+  ```
 
-* `cat .git/config`: Check the contents of the configuration file
+  - Make sure to provide a unique name for each key when prompted (e.g., 
+  `id_ed25519_personal` and `id_ed25519_company`)
 
-**REMEMBER**: Use SSH Keys (`ssh-keygen -t rsa` in Linux) to connect with GitHub 
-repos
+* Add keys to SSH agent:
+  
+  - Run SSH agent:
+    
+    ```
+    eval "$(ssh-agent -s)"
+    ```
+
+  - Add keys:
+  
+    ```
+    > ssh-add ~/.ssh/id_ed25519_personal
+    > ssh-add ~/.ssh/id_ed25519_company
+    ```
+
+* Add the public keys (`.pub`) to each of the GitHub account settings:
+  
+  - Show the public key. For example:
+    
+    ```
+    cat ~/.ssh/id_ed25519_company.pub
+    ```
+
+  - Copy the public key
+
+  - Go to Settings > SSH and GPG keys > New SSH key
+  
+  - Give a name and paste the public key
+
+* Configure SSH Config file:
+  
+  - Create a config file:
+  
+    ```
+    vim ~/.ssh/config
+    ```
+  
+  - Add configurations for each account:
+    
+    ```
+    # Personal account
+    Host your_personal_git_server # Or your personal Git server's hostname
+      HostName github.com
+      User git
+      IdentityFile ~/.ssh/id_ed25519_personal
+
+    # Corporate account
+    Host your_corporate_git_server # Replace with your corporate Git server's hostname
+      HostName github.com
+      User git
+      IdentityFile ~/.ssh/id_ed25519_corporate
+    ```
+
+* Test the SSH connection for each account:
+  
+  For example:
+    
+  ```
+  ssh -T git@your_personal_git_server
+  ```
+  ```
+  Hi [github_account]! You've successfully authenticated, but GitHub does not provide shell access.
+  ```
+
+* Clone a repository: 
+  
+  ```
+  git clone git@your_personal_git_server:git_account/repo.git
+  ```
+
+  or 
+
+  ```
+  git clone git@your_corporate_git_server:git_account/repo.git
+  ```
+
+### Configure Global Username and User emal for an Account
+
+* Set global username:
+  
+  ```
+  git config --global user.name "[first_name last_name]"
+  ```
+
+  - Use the `--local` flag to set **corporate account** configurations only for
+  the specific corporate repository directory (You need to `cd` to the repository
+  directory)
+
+* Set global email address:
+  
+  ```
+  git config --global user.email "[valid-email]"
+  ```
+
+  - Use the `--local` flag to set **corporate account** configurations only for
+  the specific corporate repository directory (You need to `cd` to the repository
+  directory)
+
+* Check the contents of the configuration file:
+  
+  ```
+  cat .git/config
+  ```
+
+### Sign your Commits
+
+Source: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification
+
+* Download GPG for CLI: https://www.gnupg.org/download/
+
+In Git Bash:
+
+* Generate a GPG key pair:
+  
+  ```
+  gpg --full-generate-key
+  ```
+
+  - At the prompts, specify the kind, key size, expiration time, add user ID 
+  (Enter the verified email address for your GitHub account), set a passphrase
+  **save this passphrase as you will use it when signing your commits**
+
+* List the long form of the GPG keys:
+  
+  ```
+  gpg --list-secret-keys --keyid-form=long
+  ```
+  ```
+  /Users/hubot/.gnupg/secring.gpg
+  ------------------------------------
+  sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+  uid                          Hubot <hubot@example.com>
+  ssb   4096R/4BB6D45482678BE3 2016-03-10
+  ```
+
+* Copy the long form of the GPG key ID to use. For example: `3AA5C34371567BD2`
+
+* Print the GPG key ID in ASCII armor format for the GPG key ID copied:
+`3AA5C34371567BD2`
+
+  ```
+  gpg --armor --export 3AA5C34371567BD2
+  ```
+
+* Copy your GPG key, beginning with `-----BEGIN PGP PUBLIC KEY BLOCK-----` and
+ending with `-----END PGP PUBLIC KEY BLOCK-----`
+
+* Go to your GitHub account > Settings > SSH and GPG keys > New GPG key and 
+add the complete key
+
+* Set global `user.signingkey`  and `commit.gpgsign`:
+  
+  ```
+  > git config --global user.signingkey 3AA5C34371567BD2
+  > git config --global commit.gpgsign true
+  ```
+
+* Sign your commits:
+  
+  ```
+  git commit -S -m "YOUR COMMIT MESSAGE"
+  ```
+
+  - You need to provide the passphrase you set up when you generated your GPG key
 
 ### Initiate Git
 
