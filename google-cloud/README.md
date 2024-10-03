@@ -5,7 +5,7 @@
 - [Google Cloud Platform](#google-cloud-platform)
 - [Install `gcloud`](#install-gcloud)
   - [Debian/Ubuntu](#debianubuntu)
-  - [Create `gcloud` Configurations](#create-gcloud-configurations)
+- [Create `gcloud` Configurations](#create-gcloud-configurations)
 - [Authenticate](#authenticate)
   - [Using Client Libraries](#using-client-libraries)
   - [Using `gcloud` CLI](#using-gcloud-cli)
@@ -76,7 +76,7 @@ Source: https://cloud.google.com/sdk/docs/install#deb
   ```
 
 ---
-## Create `gcloud` Configurations
+# Create `gcloud` Configurations
 
 * Create a new configuration:
   
