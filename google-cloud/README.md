@@ -5,6 +5,7 @@
 - [Google Cloud Platform](#google-cloud-platform)
 - [Install `gcloud`](#install-gcloud)
   - [Debian/Ubuntu](#debianubuntu)
+  - [Create `gcloud` Configurations](#create-gcloud-configurations)
 - [Authenticate](#authenticate)
   - [Using Client Libraries](#using-client-libraries)
   - [Using `gcloud` CLI](#using-gcloud-cli)
@@ -72,6 +73,64 @@ Source: https://cloud.google.com/sdk/docs/install#deb
 
   ```
   sudo apt-get install google-cloud-cli-app-engine-python
+  ```
+
+---
+## Create `gcloud` Configurations
+
+* Create a new configuration:
+  
+  ```
+  gcloud config configurations create [configuration_name]
+  ```
+
+  For example:
+
+  ```
+  gcloud config configurations create sebastiancg
+  ```
+
+  - You should login to your respective Google Cloud account
+  afterwards:
+
+    ```
+    gcloud auth login
+    ```
+
+* Set a project for your configuration:
+  
+  ```
+  gcloud config set project [project_id]
+  ```
+
+* Get the ID of a project:
+  
+  ```
+  gcloud config get-value project
+  ```
+
+* List all the configurations:
+  
+  ```
+  gcloud config configurations list
+  ```
+
+* Activate a configuration:
+  
+  ```
+  gcloud config configurations activate [configuration_name]
+  ```
+
+* Delete a configuration:
+
+  ```
+  gcloud config configurations delete [configuration_name]
+  ```
+
+* Describe a configuration:
+  
+  ```
+  gcloud config configurations describe [configuration_name]
   ```
 
 ---
